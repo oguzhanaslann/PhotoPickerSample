@@ -1,17 +1,13 @@
 package com.oguzhanaslann.photopickersample
 
-import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -57,57 +53,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-/**
- *  Caution : requires READ_EXTERNAL_STORAGE permission in manifest file to work when using api 29 and below
- *      for api 30, android 11 : READ_EXTERNAL_STORAGE permission is required
- *      for api 29, android 10 : one of READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE permissions is required
- *      for api 28 and below :  READ_EXTERNAL_STORAGE permission is required
- */
-class PickContentLegacyMediaStore : ActivityResultContract<Unit, Uri?>() {
-    override fun createIntent(context: Context, input: Unit): Intent {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        return intent
-    }
-
-    override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
-        if (resultCode == ComponentActivity.RESULT_OK) {
-            val data = intent?.data
-            return data
-        }
-
-        return null
-    }
-}
-
-/**
- *  No permission needed since using StorageAccessFramework
- *  @see [https://developer.android.com/training/data-storage/shared/documents-files]
- */
-class PickContentLegacyDocumentTree : ActivityResultContract<Unit, Uri?>() {
-    override fun createIntent(context: Context, input: Unit): Intent {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
-        intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/*"))
-        return intent
-    }
-
-    override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
-        if (resultCode == ComponentActivity.RESULT_OK) {
-            val data = intent?.data
-            return data
-        }
-
-        return null
-    }
-}
-
-enum class LastPickPlace {
-    MEDIA_STORE,
-    DOCUMENT_TREE,
-    PHOTO_PICKER
 }
 
 @Composable
