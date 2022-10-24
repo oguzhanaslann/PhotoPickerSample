@@ -8,8 +8,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContract
 
 /**
- *  Caution : requires READ_EXTERNAL_STORAGE permission in manifest file to work when using api 29 and below
- *      for api 30, android 11 : READ_EXTERNAL_STORAGE permission is required
+ *  Caution : might require READ_EXTERNAL_STORAGE permission in manifest file to work when using api 29 and below
+ *      for api 30 or above : READ_EXTERNAL_STORAGE permission is required
  *      for api 29, android 10 : one of READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE permissions is required
  *      for api 28 and below :  READ_EXTERNAL_STORAGE permission is required
  */
