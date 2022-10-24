@@ -59,6 +59,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ *  Caution : requires READ_EXTERNAL_STORAGE permission in manifest file to work when using api 29 and below
+ */
 class PickContentLegacyMediaStore : ActivityResultContract<Unit, Uri?>() {
     override fun createIntent(context: Context, input: Unit): Intent {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -75,7 +78,10 @@ class PickContentLegacyMediaStore : ActivityResultContract<Unit, Uri?>() {
     }
 }
 
-// PickContentLegacyDocumentTree
+/**
+ *  No permission needed since using StorageAccessFramework
+ *  @see [https://developer.android.com/training/data-storage/shared/documents-files]
+ */
 class PickContentLegacyDocumentTree : ActivityResultContract<Unit, Uri?>() {
     override fun createIntent(context: Context, input: Unit): Intent {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
