@@ -61,6 +61,9 @@ class MainActivity : ComponentActivity() {
 
 /**
  *  Caution : requires READ_EXTERNAL_STORAGE permission in manifest file to work when using api 29 and below
+ *      for api 30, android 11 : READ_EXTERNAL_STORAGE permission is required
+ *      for api 29, android 10 : one of READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE permissions is required
+ *      for api 28 and below :  READ_EXTERNAL_STORAGE permission is required
  */
 class PickContentLegacyMediaStore : ActivityResultContract<Unit, Uri?>() {
     override fun createIntent(context: Context, input: Unit): Intent {
